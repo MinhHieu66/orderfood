@@ -1,6 +1,6 @@
 <div class="home-products" id="home-products">
     <?php foreach ($products as $product): ?>
-    <div class="col-product">
+    <div class="col-product" data-id="<?php echo $product['id'] ?>">
         <article class="card-product">
             <div class="card-header">
                 <a href="#" class="card-image-link" onclick="detailProduct(1)">
@@ -17,7 +17,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="product-price">
-                        <span class="current-price"><?php echo $product["price"] ?>&nbsp;₫</span>
+                        <span
+                            class="current-price"><?php echo number_format($product["price"], 0, ",", ".") ?>&nbsp;₫</span>
                     </div>
                     <div class="product-buy">
                         <button onclick="detailProduct(1)" class="card-button order-item"><i

@@ -93,7 +93,8 @@
                     <li class="header-middle-right-item open" onclick="openCart()">
                         <div class="cart-icon-menu">
                             <i class="fa-light fa-basket-shopping"></i>
-                            <span class="count-product-cart">0</span>
+                            <span
+                                class="count-product-cart"><?php echo(isset($_SESSION['cart']) ? count($_SESSION['cart']) : "0") ?></span>
                         </div>
                         <span>Giỏ hàng</span>
                     </li>

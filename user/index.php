@@ -49,6 +49,27 @@
         $products    = $product_Database->getCategoriesPagination($page, $perPage);
     }
 
+    if (isset($_GET["action"]) && $_GET["action"] == "cart") {
+        $id      = $_POST["product_id"];
+        $product = $product_Database->getProductById($id);
+
+        $quantity = $_POST["quantity"];
+        $note     = $_POST["note"];
+
+        if (isset($_SESSION['cart'][$id])) {
+            $_SESSION['cart'][$id]['quantity'] += $quantity;
+        } else {
+            $_SESSION['cart'][$id] = [
+                'name'     => $product["title"],
+                'price'    => $product["price"],
+                'quantity' => $quantity,
+                'note'     => $note,
+            ];
+        }
+
+        // header("location: index.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,12 +151,61 @@
     <!-- Banner -->
     <?php require_once "banner.php"?>
 
-    <div class="modal product-detail">
+    <div class="modal product-detail" id="product-detail">
+        <form action="index.php?action=cart" method="POST">
+            <!-- Input ẩn để truyền id món ăn -->
+            <input type="hidden" id="product_id" name="product_id" value="">
+
+            <button class="modal-close close-popup">
+                <i class="fa-thin fa-xmark"></i>
+            </button>
+            <div class="modal-container mdl-cnt" id="product-detail-content">
+                <div class="modal-header">
+                    <img class="product-image" src="../assets/img/products/nam-dui-ga-chay-toi.jpeg" alt="">
+                </div>
+                <div class="modal-body">
+                    <h2 class="product-title">Nấm đùi gà xào cháy tỏi</h2>
+                    <div class="product-control">
+                        <div class="priceBox">
+                            <span class="current-price" id="price">200.000&nbsp;₫</span>
+                        </div>
+                        <div class="buttons_added">
+                            <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+                            <input class="input-qty" max="100" min="1" name="quantity" type="number" value="1">
+                            <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this)">
+                        </div>
+                    </div>
+                    <p class="product-description">Một Món chay ngon miệng với nấm đùi gà thái chân hương, xào săn với
+                        lửa
+                        và thật nhiều tỏi băm, nêm nếm với mắm và nước tương chay, món ngon đưa cơm và rất dễ ăn cả cho
+                        người lớn và trẻ nhỏ.</p>
+                </div>
+                <div class="notebox">
+                    <p class="notebox-title">Ghi chú</p>
+                    <textarea name="note" class="text-note" id="popup-detail-note"
+                        placeholder="Nhập thông tin cần lưu ý..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <div class="price-total">
+                        <span class="thanhtien">Thành tiền</span>
+                        <span class="price" id="total">200.000&nbsp;₫</span>
+                    </div>
+                    <div class="modal-footer-control">
+                        <button class="button-dathangngay" data-product="1">Đặt hàng ngay</button>
+                        <button type="submit" class="button-dat" id="add-cart" onclick="animationCart()"><i
+                                class="fa-light fa-basket-shopping"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <!-- <div class="modal product-detail">
         <button class="modal-close close-popup">
             <i class="fa-thin fa-xmark"></i>
         </button>
         <div class="modal-container mdl-cnt" id="product-detail-content"></div>
-    </div>
+    </div> -->
     <div class="modal signup-login">
         <div class="modal-container">
             <button class="form-close" onclick="closeModal()">
@@ -229,6 +299,63 @@
                 </button>
             </div>
             <div class="cart-body">
+                <div class="gio-hang-trong"
+                    style="display:                                                                                                                                             <?php echo(isset($_SESSION["cart"])) ? 'none' : 'block' ?>;">
+                    <i class="fa-thin fa-cart-xmark"></i>
+                    <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                </div>
+                <ul class="cart-list">
+                    <?php if (isset($_SESSION['cart'])): ?>
+<?php foreach ($_SESSION['cart'] as $item): ?>
+                    <li class="cart-item" data-id="1">
+                        <div class="cart-item-info">
+                            <p class="cart-item-title">
+                                <?php echo $item["name"] ?>
+                            </p>
+                            <span class="cart-item-price price" data-price="200000">
+                                <?php echo number_format($item["price"], 0, ",", ".") ?>&nbsp;₫
+                            </span>
+                        </div>
+                        <p class="product-note"><i class="fa-light fa-pencil"></i><span>Không có ghi chú</span></p>
+                        <div class="cart-item-control">
+                            <button class="cart-item-delete" onclick="deleteCartItem(1,this)">Xóa</button>
+                            <div class="buttons_added">
+                                <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+                                <input class="input-qty" max="100" min="1" name="" type="number"
+                                    value="<?php echo $item["quantity"] ?>">
+                                <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this)">
+                            </div>
+                        </div>
+                    </li>
+                    <?php endforeach?>
+<?php endif?>
+                </ul>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total-price">
+                    <p class="text-tt">Tổng tiền:</p>
+                    <p class="text-price">1.325.000&nbsp;₫</p>
+                </div>
+                <div class="cart-footer-payment">
+                    <button class="them-mon">
+                        <i class="fa-regular fa-plus"></i> Thêm món
+                    </button>
+                    <button class="thanh-toan">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="modal-cart">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h3 class="cart-header-title">
+                    <i class="fa-regular fa-basket-shopping-simple"></i> Giỏ hàng
+                </h3>
+                <button class="cart-close" onclick="closeCart()">
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="cart-body">
                 <div class="gio-hang-trong">
                     <i class="fa-thin fa-cart-xmark"></i>
                     <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
@@ -248,7 +375,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="modal detail-order">
         <div class="modal-container mdl-cnt">
             <h3 class="modal-container-title">Thông tin đơn hàng</h3>
@@ -416,6 +543,54 @@
             toast.classList.remove("show");
         }
     }, 3000);
+    </script>
+    <script>
+    // Chi tiết sản phẩm
+    document.addEventListener("DOMContentLoaded", function() {
+        const productDetail = document.getElementById("product-detail");
+        const listProduct = document.querySelectorAll(".col-product");
+        listProduct.forEach((element) => {
+            element.addEventListener("click", function() {
+                // productDetail.classList.add("open");
+                const productId = element.getAttribute('data-id');
+                fetch(`../model/ajax_product_detail.php?id=${productId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            productDetail.querySelector(".product-title").innerHTML = data
+                                .title;
+                            productDetail.querySelector(".product-description").innerHTML =
+                                data
+                                .description;
+                            productDetail.querySelector(".product-image").src =
+                                "../assets/img/products/" + data.image; //200.000&nbsp;₫
+                            let price = data.price;
+                            let formatted = price.toLocaleString('vi-VN');
+
+                            productDetail.querySelector(".current-price").innerHTML =
+                                formatted + "&nbsp;₫";
+
+                            let quantity = productDetail.querySelector(".input-qty").value;
+                            let total = parseInt(quantity) * parseInt(price);
+
+                            productDetail.querySelector(".price").innerHTML =
+                                total.toLocaleString('vi-VN') + "&nbsp;₫";
+
+                            productDetail.querySelector("#product_id").value = data.id;
+
+                            productDetail.classList.add("open");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching product:', error);
+                        alert('Lỗi khi lấy dữ liệu sản phẩm');
+                    });
+            });
+        });
+
+    });
     </script>
     <script src="../js/initialization.js"></script>
     <script src="../js/main.js"></script>

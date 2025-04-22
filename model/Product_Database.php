@@ -13,6 +13,14 @@ class Product_Database extends Database
         return $items;
     }
 
+    public function getProductById($id)
+    {
+        $sql = self::$connection->prepare("SELECT * FROM product WHERE id = ?");
+        $sql->bind_param("i", $id);
+        $sql->execute();
+        return $sql->get_result()->fetch_assoc();
+    }
+
     public function getAllProductsByCategoryId($category_id)
     {
         $sql = self::$connection->prepare("SELECT * FROM product WHERE category_id LIKE ?");
