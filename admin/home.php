@@ -1,0 +1,40 @@
+<div class="section active">
+    <h1 class="page-title">Trang tổng quát của cửa hàng Vy Food</h1>
+    <div class="cards">
+        <div class="card-single">
+            <div class="box">
+                <h2 id="amount-user">1</h2>
+                <div class="on-box">
+                    <img src="../assets/img/admin/s1.png" alt="" style=" width: 200px;">
+                    <h3>Khách hàng</h3>
+                    <p>Sản phẩm là bất cứ cái gì có thể đưa vào thị trường để tạo sự chú ý, mua sắm, sử dụng
+                        hay tiêu dùng nhằm thỏa mãn một nhu cầu hay ước muốn. Nó có thể là những vật thể,
+                        dịch vụ, con người, địa điểm, tổ chức hoặc một ý tưởng.</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-single">
+            <div class="box">
+                <div class="on-box">
+                    <img src="../assets/img/admin/s2.png" alt="" style=" width: 200px;">
+                    <h2 id="amount-product">60</h2>
+                    <h3>Sản phẩm</h3>
+                    <p>Khách hàng mục tiêu là một nhóm đối tượng khách hàng trong phân khúc thị trường mục
+                        tiêu mà doanh nghiệp bạn đang hướng tới. </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-single">
+            <div class="box">
+                <h2 id="doanh-thu">0&nbsp;₫</h2>
+                <div class="on-box">
+                    <img src="../assets/img/admin/s3.png" alt="" style=" width: 200px;">
+                    <h3>Doanh thu</h3>
+                    <p>Doanh thu của doanh nghiệp là toàn bộ số tiền sẽ thu được do tiêu thụ sản phẩm, cung
+                        cấp dịch vụ với sản lượng.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
