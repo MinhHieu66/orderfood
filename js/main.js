@@ -5,7 +5,7 @@ function vnd(price) {
 
 // Close popup
 const body = document.querySelector("body");
-let modalContainer = document.querySelectorAll(".modal");
+// let modalContainer = document.querySelectorAll(".modal");
 let modalBox = document.querySelectorAll(".mdl-cnt");
 let formLogSign = document.querySelector(".forms");
 
@@ -359,32 +359,32 @@ function closeSearchMb() {
 //Signup && Login Form
 
 // Chuyen doi qua lai SignUp & Login
-let signup = document.querySelector(".signup-link");
-let login = document.querySelector(".login-link");
-let container = document.querySelector(".signup-login .modal-container");
-login.addEventListener("click", () => {
-  container.classList.add("active");
-});
+// let signup = document.querySelector(".signup-link");
+// let login = document.querySelector(".login-link");
+// let container = document.querySelector(".signup-login .modal-container");
+// login.addEventListener("click", () => {
+//   container.classList.add("active");
+// });
 
-signup.addEventListener("click", () => {
-  container.classList.remove("active");
-});
+// signup.addEventListener("click", () => {
+//   container.classList.remove("active");
+// });
 
-let signupbtn = document.getElementById("signup");
-let loginbtn = document.getElementById("login");
-let formsg = document.querySelector(".modal.signup-login");
-signupbtn.addEventListener("click", () => {
-  formsg.classList.add("open");
-  container.classList.remove("active");
-  body.style.overflow = "hidden";
-});
+// let signupbtn = document.getElementById("signup");
+// let loginbtn = document.getElementById("login");
+// let formsg = document.querySelector(".modal.signup-login");
+// signupbtn.addEventListener("click", () => {
+//   formsg.classList.add("open");
+//   container.classList.remove("active");
+//   body.style.overflow = "hidden";
+// });
 
-loginbtn.addEventListener("click", () => {
-  document.querySelector(".form-message-check-login").innerHTML = "";
-  formsg.classList.add("open");
-  container.classList.add("active");
-  body.style.overflow = "hidden";
-});
+// loginbtn.addEventListener("click", () => {
+//   document.querySelector(".form-message-check-login").innerHTML = "";
+//   formsg.classList.add("open");
+//   container.classList.add("active");
+//   body.style.overflow = "hidden";
+// });
 
 // Dang nhap & Dang ky
 

@@ -31,9 +31,9 @@
                 </div>
             </div>
             <div class="header-middle-center">
-                <form action="" class="form-search">
+                <form action="index.php" class="form-search">
                     <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
-                    <input type="text" class="form-search-input" placeholder="Tìm kiếm món ăn..."
+                    <input type="text" name="key" class="form-search-input" placeholder="Tìm kiếm món ăn..."
                         oninput="searchProducts()" />
                     <button class="filter-btn">
                         <i class="fa-light fa-filter-list"></i><span>Lọc</span>
@@ -57,14 +57,14 @@
                         <i class="fa-light fa-user"></i>
                         <div class="auth-container">
                             <span class="text-dndk">Tài khoản</span>
-                            <span class="text-tk"><?php echo $_SESSION["fullname"] ?>>
+                            <span class="text-tk"><?php echo $_SESSION["fullname"] ?>
                                 <i class="fa-sharp fa-solid fa-caret-down"></i></span>
                         </div>
                         <ul class="header-middle-right-menu">
                             <li><a href="javascript:;" onclick="myAccount()"><i class="fa-light fa-circle-user"></i>
                                     Tài khoản của tôi</a></li>
-                            <li><a href="javascript:;" onclick="orderHistory()"><i
-                                        class="fa-regular fa-bags-shopping"></i> Đơn hàng đã mua</a></li>
+                            <!-- <li><a href="javascript:;" onclick="orderHistory()"><i
+                                        class="fa-regular fa-bags-shopping"></i> Đơn hàng đã mua</a></li> -->
                             <li class="border"><a id="logout" href="index.php?action=exit"><i
                                         class="fa-light fa-right-from-bracket"></i> Thoát tài khoản</a></li>
                         </ul>

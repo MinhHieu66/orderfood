@@ -1,4 +1,6 @@
+<?php if (isset($products)): ?>
 <div class="home-products" id="home-products">
+
     <?php foreach ($products as $product): ?>
     <div class="col-product" data-id="<?php echo $product['id'] ?>">
         <article class="card-product">
@@ -29,7 +31,9 @@
         </article>
     </div>
     <?php endforeach?>
+
 </div>
+<?php if (isset($isFlag) && $isFlag): ?>
 <div class="page-nav">
     <ul class="page-nav-list">
         <!-- Pagination -->
@@ -40,3 +44,5 @@
         ?>
     </ul>
 </div>
+<?php endif?>
+<?php endif?>

@@ -21,6 +21,17 @@ class Product_Database extends Database
         return $sql->get_result()->fetch_assoc();
     }
 
+    public function getProductByProductName($product_name)
+    {
+        $key = "%$product_name%";
+        $sql = self::$connection->prepare("SELECT * FROM product WHERE title LIKE ?");
+        $sql->bind_param("s", $key);
+        $sql->execute();
+        $items = [];
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
+
     public function getAllProductsByCategoryId($category_id)
     {
         $sql = self::$connection->prepare("SELECT * FROM product WHERE category_id LIKE ?");
